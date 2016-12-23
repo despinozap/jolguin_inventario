@@ -5,6 +5,10 @@
  */
 package inventario;
 
+import inventario.Graphic.FrmLogin;
+import inventario.Graphic.FrmMain;
+import inventario.Logic.CONFIG_FORMS;
+
 /**
  *
  * @author David
@@ -16,7 +20,17 @@ public class Inventario {
      */
     public static void main(String[] args) 
     {
-        // TODO code application logic here
+        FrmLogin frmLogin = new FrmLogin();
+        
+        //frmLogin.show();
+        
+        //REMOVE IT!
+        {
+            FrmMain frmMain = new FrmMain();
+            CONFIG_FORMS.frmMain = frmMain;
+            
+            CONFIG_FORMS.frmMain.show();
+        }
     }
     
 }

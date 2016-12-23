@@ -1,1 +1,2 @@
-Clasificación: Aseo, Cocina
+nombre unico
+dateformat producto
