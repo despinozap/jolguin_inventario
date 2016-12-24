@@ -5,7 +5,6 @@
  */
 package inventario.Graphic;
 
-import inventario.Entity.Producto;
 import inventario.Logic.CONFIG_FORMS;
 import inventario.Logic.LogicController;
 import inventario.Logic.MyTableModel;
@@ -95,19 +94,19 @@ public class FrmProductos extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Producto"));
 
-        jLabel1.setText("Producto");
+        jLabel1.setText("Nombre:");
 
         jLabel5.setText("Clasificación:");
 
-        cbClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aseo", "Cocina" }));
+        cbClasificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione..", "Aseo", "Cocina" }));
 
         jLabel6.setText("Código:");
 
@@ -153,7 +152,7 @@ public class FrmProductos extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtFechaCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -196,7 +195,7 @@ public class FrmProductos extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btRemove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btInsert, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                    .addComponent(btInsert, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                     .addComponent(btBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -218,29 +217,29 @@ public class FrmProductos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(711, 459));
+        setSize(new java.awt.Dimension(640, 486));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -253,25 +252,22 @@ public class FrmProductos extends javax.swing.JFrame {
     private void btFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFindActionPerformed
         // TODO add your handling code here:
         
-        String codigo = JOptionPane.showInputDialog(this, "Ingrese el código del producto", "Buscar producto", JOptionPane.QUESTION_MESSAGE);
-        if(codigo != null)
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre del producto", "Buscar producto", JOptionPane.QUESTION_MESSAGE);
+        if(nombre != null)
         {
-            Producto producto = LogicController.getProductoByCodigo(codigo);
-            if(producto != null)
+            MyTableModel dbMtm = LogicController.getProductos(nombre);
+            if(dbMtm != null)
             {
-                txtNombre.setText(producto.getNombre());
-                cbClasificacion.setSelectedItem(producto.getClasificacion());
-                txtCodigo.setText(producto.getCodigo());
-                txtFechaCaducidad.setText(producto.getFechaCaducidad());
+                displayProductos(dbMtm);
             }
             else
             {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al obtener el producto", "Buscar producto", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al realizar la búsqueda", "Buscar producto", JOptionPane.ERROR_MESSAGE);
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "Debes ingresar el código del producto a buscar", "Buscar producto", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes ingresar parte del nombre del producto a buscar", "Buscar producto", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btFindActionPerformed
 
@@ -281,7 +277,6 @@ public class FrmProductos extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        loadProductos();
     }//GEN-LAST:event_formWindowActivated
 
     private void btInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertActionPerformed
@@ -420,8 +415,18 @@ public class FrmProductos extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
     }
     
-    private boolean loadProductos()
+    public void loadProductos()
     {
+        displayProductos(LogicController.getProductos());
+    }
+    
+    private boolean displayProductos(MyTableModel dbMtm)
+    {
+        if(dbMtm == null)
+        {
+            return false;
+        }
+        
         boolean result = false;
         
         MyTableModel mtm = new MyTableModel();
@@ -431,7 +436,6 @@ public class FrmProductos extends javax.swing.JFrame {
         mtm.addColumn("Fecha caducidad");
         mtm.addColumn("Cantidad");
         
-        MyTableModel dbMtm = LogicController.getProductos();
         if(dbMtm != null)
         {
             Object[] data = null;
@@ -474,6 +478,12 @@ public class FrmProductos extends javax.swing.JFrame {
         if(txtNombre.getText().length() < 1)
         {
             JOptionPane.showMessageDialog(this, "Debes ingresar el nombre del producto", "Ingresar nuevo producto", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(cbClasificacion.getSelectedIndex() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar la clasificación del producto", "Ingresar nuevo producto", JOptionPane.WARNING_MESSAGE);
             
             response = false;
         }

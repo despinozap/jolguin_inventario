@@ -7,10 +7,7 @@ package inventario.Logic;
 
 import inventario.Entity.Producto;
 import inventario.Persistent.SQLite;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -109,6 +106,13 @@ public class LogicController
     }
     */
     
+    
+    /*
+    *
+    *   P R O D U C T O
+    *
+    */
+    
     public static int isProductoInOrden(String codigo)
     {
         if(codigo == null)
@@ -203,6 +207,17 @@ public class LogicController
         }
         
         return producto;
+    }
+    
+    public static MyTableModel getProductos(String nombre)
+    {
+        String query = "SELECT codigo, nombre, clasificacion, fechacaducidad, cantidad FROM Producto WHERE nombre LIKE ?;";
+        ArrayList<String> values = new ArrayList<String>();
+        values.add(nombre);
+        
+        MyTableModel mtm = SQLite.getDB_LIKE(query, values);
+        
+        return mtm;
     }
     
     public static MyTableModel getProductos()

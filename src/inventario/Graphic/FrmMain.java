@@ -48,6 +48,11 @@ public class FrmMain extends javax.swing.JFrame {
 
         btShowCompras.setText("Compras");
         btShowCompras.setFocusable(false);
+        btShowCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btShowComprasActionPerformed(evt);
+            }
+        });
 
         btShowProductos.setText("Productos");
         btShowProductos.setFocusable(false);
@@ -121,9 +126,22 @@ public class FrmMain extends javax.swing.JFrame {
             CONFIG_FORMS.frmProductos = new FrmProductos();
         }
         
+        CONFIG_FORMS.frmProductos.loadProductos();
         CONFIG_FORMS.frmProductos.show();
         this.hide();
     }//GEN-LAST:event_btShowProductosActionPerformed
+
+    private void btShowComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btShowComprasActionPerformed
+        // TODO add your handling code here:
+        if(CONFIG_FORMS.frmCompras == null)
+        {
+            CONFIG_FORMS.frmCompras = new FrmCompras();
+        }
+        
+        CONFIG_FORMS.frmCompras.loadProductos();
+        CONFIG_FORMS.frmCompras.show();
+        this.hide();
+    }//GEN-LAST:event_btShowComprasActionPerformed
 
     /**
      * @param args the command line arguments

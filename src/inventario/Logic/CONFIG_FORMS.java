@@ -5,13 +5,16 @@
  */
 package inventario.Logic;
 
-import javax.swing.JFrame;
+import inventario.Graphic.FrmCompras;
+import inventario.Graphic.FrmMain;
+import inventario.Graphic.FrmProductos;
 
 /**
  *
  * @author David
  */
 public class CONFIG_FORMS {
-    public static JFrame frmMain = null;
-    public static JFrame frmProductos = null;
+    public static FrmMain frmMain = null;
+    public static FrmProductos frmProductos = null;
+    public static FrmCompras frmCompras = null;
 }
