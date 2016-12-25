@@ -6,6 +6,7 @@
 package inventario.Logic;
 
 import inventario.Entity.Producto;
+import inventario.Entity.Proveedor;
 import inventario.Persistent.SQLite;
 import java.util.ArrayList;
 
@@ -105,6 +106,98 @@ public class LogicController
         return executed;
     }
     */
+    
+    
+    /*
+    *
+    *   P R O V E E D O R
+    *
+    */
+    
+    public static int isProveedorInOrden(String rut)
+    {
+        if(rut == null)
+        {
+            return -2;
+        }
+        else if(rut.length() < 1)
+        {
+            return -2;
+        }
+        
+        if(LogicController.getProveedorByRUT(rut) == null)
+        {
+            return -1;
+        }
+        
+        int response = 0;
+        
+        String query = "SELECT orden_id FROM Orden_Producto WHERE (proveedor_rut=?);";
+        ArrayList<String> values = new ArrayList<String>();
+        values.add(rut);
+        
+        MyTableModel mtm = SQLite.getDB(query, values);
+
+        if(mtm.getRowCount() > 0)
+        {
+            response = 1;
+        }
+        
+        return response;
+    }
+    
+    public static Proveedor getProveedorByRUT(String rut)
+    {
+        if(rut == null)
+        {
+            return null;
+        }
+        else if(rut.length() < 1)
+        {
+            return null;
+        }
+        
+        String query = "SELECT rut, nombre, direccion, telefono, celular, email FROM Proveedor WHERE (rut=?);";
+        ArrayList<String> values = new ArrayList<String>();
+        values.add(rut);
+        
+        MyTableModel mtm = SQLite.getDB(query, values);
+        
+        Proveedor proveedor = null;
+        if(mtm.getRowCount() > 0)
+        {
+            proveedor = new Proveedor(
+                                        mtm.getValueAt(0, 0).toString(),
+                                        mtm.getValueAt(0, 1).toString(),
+                                        mtm.getValueAt(0, 2).toString(),
+                                        mtm.getValueAt(0, 3).toString(),
+                                        mtm.getValueAt(0, 4).toString(),
+                                        mtm.getValueAt(0, 5).toString()
+            );
+        }
+        
+        return proveedor;
+    }
+    
+    public static boolean deleteProveedor(String rut)
+    {
+        if(rut == null)
+        {
+            return false;
+        }
+        else if(rut.length() < 1)
+        {
+            return false;
+        }
+        
+        String query = "DELETE FROM Proveedor WHERE (ruto=?);";
+        ArrayList<String> values = new ArrayList<String>();
+        values.add(rut);
+        
+        boolean executed = SQLite.exec(query, values);
+        
+        return executed;
+    }
     
     
     /*

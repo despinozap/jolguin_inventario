@@ -1,2 +1,5 @@
-nombre unico
-dateformat producto
+deleteProveedor
+back
+validateFormProducto
+validateFormCompra
+insertCompra

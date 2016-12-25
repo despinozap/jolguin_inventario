@@ -6,6 +6,7 @@
 package inventario.Graphic;
 
 import inventario.Entity.Producto;
+import inventario.Entity.Proveedor;
 import inventario.Logic.CONFIG_FORMS;
 import inventario.Logic.LogicController;
 import inventario.Logic.MyTableModel;
@@ -13,6 +14,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author David
@@ -51,6 +53,24 @@ public class FrmCompras extends javax.swing.JFrame {
         txtProducto_NumeroFactura = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtProducto_FechaCompra = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        txtProveedor_Nombre = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtProveedor_RUT = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtProveedor_Direccion = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtProveedor_Telefono = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtProveedor_Celular = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtProveedor_Email = new javax.swing.JTextField();
+        btFindProveedor = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        btRemoveProveedor = new javax.swing.JButton();
+        btBack = new javax.swing.JButton();
 
         setTitle("Compras");
         setResizable(false);
@@ -101,7 +121,7 @@ public class FrmCompras extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtProducto_PrecioCompra, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtProducto_Clasificacion, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -147,13 +167,144 @@ public class FrmCompras extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Proveedor"));
+
+        jLabel7.setText("Nombre:");
+
+        jLabel8.setText("RUT:");
+
+        txtProveedor_RUT.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtProveedor_RUTFocusLost(evt);
+            }
+        });
+
+        jLabel9.setText("Dirección:");
+
+        jLabel10.setText("Teléfono:");
+
+        jLabel11.setText("Celular:");
+
+        jLabel12.setText("Email:");
+
+        btFindProveedor.setText("Buscar");
+        btFindProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFindProveedorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtProveedor_RUT)
+                    .addComponent(txtProveedor_Direccion)
+                    .addComponent(txtProveedor_Celular)
+                    .addComponent(txtProveedor_Telefono)
+                    .addComponent(txtProveedor_Email)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtProveedor_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btFindProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtProveedor_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btFindProveedor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtProveedor_RUT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtProveedor_Direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtProveedor_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtProveedor_Celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtProveedor_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
+
+        jButton1.setText("Guardar compra");
+
+        btRemoveProveedor.setText("Eliminar proveedor");
+        btRemoveProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoveProveedorActionPerformed(evt);
+            }
+        });
+
+        btBack.setText("Volver");
+        btBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btRemoveProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(89, 89, 89))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btRemoveProveedor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btBack)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -161,10 +312,14 @@ public class FrmCompras extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(387, 540));
+        setSize(new java.awt.Dimension(408, 681));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -198,6 +353,114 @@ public class FrmCompras extends javax.swing.JFrame {
             txtProducto_Clasificacion.setText("");
         }
     }//GEN-LAST:event_cbProducto_NombreActionPerformed
+
+    private void txtProveedor_RUTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProveedor_RUTFocusLost
+        // TODO add your handling code here:
+        txtProveedor_RUT.setText(formatRUT(txtProveedor_RUT.getText()));
+    }//GEN-LAST:event_txtProveedor_RUTFocusLost
+
+    private void btFindProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFindProveedorActionPerformed
+        // TODO add your handling code here:
+        String rut = JOptionPane.showInputDialog(this, "Ingrese el RUT del proveedor", "Buscar proveedor", JOptionPane.QUESTION_MESSAGE);
+        if(rut != null)
+        {
+            rut = formatRUT(rut);
+            if(rut.length() > 0)
+            {
+                Proveedor proveedor = LogicController.getProveedorByRUT(rut);
+                if(proveedor != null)
+                {
+                    displayProveedor(proveedor);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "No se ha encontrado el proveedor con RUT \"" + rut + "\"", "Buscar proveedor", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "El RUT ingresado es inválido", "Buscar proveedor", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el RUT del proveedor a buscar", "Buscar proveedor", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btFindProveedorActionPerformed
+
+    private void btRemoveProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveProveedorActionPerformed
+        // TODO add your handling code here:
+        String rut = JOptionPane.showInputDialog(this, "Ingrese el RUT del proveedor", "Eliminar proveedor", JOptionPane.QUESTION_MESSAGE);
+        if(rut != null)
+        {
+            rut = formatRUT(rut);
+            if(rut.length() > 0)
+            {
+                int response = LogicController.isProveedorInOrden(rut);
+
+                switch(response)
+                {
+                    case -2:
+                    {
+                        JOptionPane.showMessageDialog(this, "Ha ocurrido un error al consultar el proveedor", "Eliminar proveedor", JOptionPane.ERROR_MESSAGE);
+
+                        break;
+                    }
+
+                    case -1:
+                    {
+                        JOptionPane.showMessageDialog(this, "El proveedor que intentas eliminar no existe", "Eliminar proveedor", JOptionPane.WARNING_MESSAGE);
+
+                        break;
+                    }
+
+                    case 0:
+                    {
+                        boolean executed = LogicController.deleteProveedor(rut);
+
+                        if(executed == true)
+                        {
+                            JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente el proveedor", "Eliminar proveedor", JOptionPane.INFORMATION_MESSAGE);
+
+                            loadProductos();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar el proveedor", "Eliminar proveedor", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        break;
+                    }
+
+                    case 1:
+                    {
+                        JOptionPane.showMessageDialog(this, "No se puede eliminar el proveedor porque está registrado en una compra", "Eliminar proveedor", JOptionPane.WARNING_MESSAGE);
+
+                        break;
+                    }
+
+                    default:
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "El RUT ingresado es inválido", "Eliminar proveedor", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el RUT del proveedor a eliminar", "Eliminar proveedor", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btRemoveProveedorActionPerformed
+
+    private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
+        // TODO add your handling code here:
+        CONFIG_FORMS.frmMain.show();
+        this.hide();
+    }//GEN-LAST:event_btBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,19 +535,88 @@ public class FrmCompras extends javax.swing.JFrame {
         cbProducto_Nombre.setModel(dcbm);
     }
     
+    private boolean validateNumber(String s)
+    {
+        try
+        {
+            Integer.parseInt(s);
+            
+            return true;
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
+    }
+    
+    private String formatRUT(String s)
+    {
+        s = s.replace(".", "").replace("-", "");
+        
+        String rut = "";
+        
+        if((validateNumber(s)) && (s.length() > 1))
+        {
+           rut = s.substring(0, s.length() -1) + "-" + s.substring(s.length() -1, s.length());
+        }
+        
+        return rut;
+    }
+    
+    private boolean validateRUT(String s)
+    {
+        return formatRUT(s).length() > 0;
+    }
+    
+    private void displayProveedor(Proveedor proveedor)
+    {
+        if(proveedor != null)
+        {
+            txtProveedor_Nombre.setText(proveedor.getNombre());
+            txtProveedor_RUT.setText(proveedor.getRUT());
+            txtProveedor_Direccion.setText(proveedor.getDireccion());
+            txtProveedor_Telefono.setText(proveedor.getTelefono());
+            txtProveedor_Celular.setText(proveedor.getCelular());
+            txtProveedor_Email.setText(proveedor.getEmail());
+        }
+    }
+    
+    private void sop(String s)
+    {
+        System.out.println(s);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBack;
+    private javax.swing.JButton btFindProveedor;
+    private javax.swing.JButton btRemoveProveedor;
     private javax.swing.JComboBox<String> cbProducto_Nombre;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtProducto_Cantidad;
     private javax.swing.JTextField txtProducto_Clasificacion;
     private javax.swing.JTextField txtProducto_FechaCompra;
     private javax.swing.JTextField txtProducto_NumeroFactura;
     private javax.swing.JTextField txtProducto_PrecioCompra;
+    private javax.swing.JTextField txtProveedor_Celular;
+    private javax.swing.JTextField txtProveedor_Direccion;
+    private javax.swing.JTextField txtProveedor_Email;
+    private javax.swing.JTextField txtProveedor_Nombre;
+    private javax.swing.JTextField txtProveedor_RUT;
+    private javax.swing.JTextField txtProveedor_Telefono;
     // End of variables declaration//GEN-END:variables
 }
