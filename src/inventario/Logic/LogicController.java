@@ -110,6 +110,115 @@ public class LogicController
     
     /*
     *
+    *   C O M P R A
+    *
+    */
+    
+    public static boolean insertCompra
+    (
+        String producto_codigo,
+        String proveedor_rut, 
+        String proveedor_nombre, 
+        String proveedor_direccion, 
+        String proveedor_telefono, 
+        String proveedor_celular, 
+        String proveedor_email,
+        String precioCompra,
+        String cantidad,
+        String numeroFactura,
+        String fechaCompra
+    )
+    {
+        if(producto_codigo == null)
+        {
+            return false;
+        }
+        else if(producto_codigo.length() < 1)
+        {
+            return false;
+        }
+        else if(proveedor_rut == null)
+        {
+            return false;
+        }
+        else if(proveedor_rut.length() < 1)
+        {
+            return false;
+        }
+        else if(cantidad == null)
+        {
+            return false;
+        }
+        else if(cantidad.length() < 1)
+        {
+            return false;
+        }
+        else if(numeroFactura == null)
+        {
+            return false;
+        }
+        else if(numeroFactura.length() < 1)
+        {
+            return false;
+        }
+        else if(precioCompra == null)
+        {
+            return false;
+        }
+        else if(precioCompra.length() < 1)
+        {
+            return false;
+        }
+        else if(LogicController.getProductoByCodigo(producto_codigo) == null)
+        {
+            return false;
+        }
+    
+        boolean executed = false;
+        Proveedor proveedor = LogicController.getProveedorByRUT(proveedor_rut);
+        if(proveedor == null)
+        {
+            executed = LogicController.insertProveedor(
+                                                        proveedor_rut,
+                                                        proveedor_nombre,
+                                                        proveedor_direccion,
+                                                        proveedor_telefono,
+                                                        proveedor_celular,
+                                                        proveedor_email
+            );
+        }
+        else
+        {
+            executed = LogicController.updateProveedor(
+                                                        proveedor_rut,
+                                                        proveedor_nombre,
+                                                        proveedor_direccion,
+                                                        proveedor_telefono,
+                                                        proveedor_celular,
+                                                        proveedor_email
+            );
+        }
+        
+        if(executed == true)
+        {
+            String query = "INSERT INTO Compra(producto_codigo, proveedor_rut, preciocompra, cantidad, numerofactura, fechacompra) VALUES (?, ?, ?, ?, ?, ?);";
+            ArrayList<String> values = new ArrayList<String>();
+            values.add(producto_codigo);
+            values.add(proveedor_rut);
+            values.add(precioCompra);
+            values.add(cantidad);
+            values.add(numeroFactura);
+            values.add(fechaCompra);
+        
+            executed = SQLite.exec(query, values);
+        }
+
+        return executed;
+    }
+    
+    
+    /*
+    *
     *   P R O V E E D O R
     *
     */
@@ -177,6 +286,152 @@ public class LogicController
         }
         
         return proveedor;
+    }
+    
+    public static boolean updateProveedor
+    (
+        String rut, 
+        String nombre, 
+        String direccion, 
+        String telefono, 
+        String celular, 
+        String email
+    )
+    {
+        if(rut == null)
+        {
+            return false;
+        }
+        else if(rut.length() < 1)
+        {
+            return false;
+        }
+        else if(nombre == null)
+        {
+            return false;
+        }
+        else if(nombre.length() < 1)
+        {
+            return false;
+        }
+        else if(direccion == null)
+        {
+            return false;
+        }
+        else if(direccion.length() < 1)
+        {
+            return false;
+        }
+        else if(telefono == null)
+        {
+            return false;
+        }
+        else if(telefono.length() < 1)
+        {
+            return false;
+        }
+        else if(celular == null)
+        {
+            return false;
+        }
+        else if(celular.length() < 1)
+        {
+            return false;
+        }
+        else if(email == null)
+        {
+            return false;
+        }
+        else if(email.length() < 1)
+        {
+            return false;
+        }
+        
+        String query = "UPDATE Proveedor SET nombre=?, direccion=?, telefono=?, celular=?, email=? WHERE (rut=?);";
+        ArrayList<String> values = new ArrayList<String>();
+        values.add(nombre);
+        values.add(direccion);
+        values.add(telefono);
+        values.add(celular);
+        values.add(email);
+        values.add(rut);
+        
+        boolean executed = SQLite.exec(query, values);
+        
+        return executed;
+    }
+    
+    public static boolean insertProveedor
+    (
+        String rut, 
+        String nombre, 
+        String direccion, 
+        String telefono, 
+        String celular, 
+        String email
+    )
+    {
+        if(rut == null)
+        {
+            return false;
+        }
+        else if(rut.length() < 1)
+        {
+            return false;
+        }
+        else if(nombre == null)
+        {
+            return false;
+        }
+        else if(nombre.length() < 1)
+        {
+            return false;
+        }
+        else if(direccion == null)
+        {
+            return false;
+        }
+        else if(direccion.length() < 1)
+        {
+            return false;
+        }
+        else if(telefono == null)
+        {
+            return false;
+        }
+        else if(telefono.length() < 1)
+        {
+            return false;
+        }
+        else if(celular == null)
+        {
+            return false;
+        }
+        else if(celular.length() < 1)
+        {
+            return false;
+        }
+        else if(email == null)
+        {
+            return false;
+        }
+        else if(email.length() < 1)
+        {
+            return false;
+        }
+        
+        String query = "INSERT INTO Proveedor(rut, nombre, direccion, telefono, celular, email) VALUES (?, ?, ?, ?, ?, ?);";
+        ArrayList<String> values = new ArrayList<String>();
+        values.add(rut);
+        values.add(nombre);
+        values.add(direccion);
+        values.add(telefono);
+        values.add(celular);
+        values.add(email);
+        
+        boolean executed = SQLite.exec(query, values);
+        
+        return executed;
     }
     
     public static boolean deleteProveedor(String rut)
@@ -323,7 +578,13 @@ public class LogicController
         return mtm;
     }
     
-    public static boolean insertProducto(String codigo, String nombre, String clasificacion, String fechaCaducidad)
+    public static boolean insertProducto
+    (
+        String codigo, 
+        String nombre, 
+        String clasificacion, 
+        String fechaCaducidad
+    )
     {
         if(codigo == null)
         {

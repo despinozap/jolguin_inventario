@@ -14,7 +14,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author David
@@ -68,7 +67,7 @@ public class FrmCompras extends javax.swing.JFrame {
         txtProveedor_Email = new javax.swing.JTextField();
         btFindProveedor = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btInsertCompra = new javax.swing.JButton();
         btRemoveProveedor = new javax.swing.JButton();
         btBack = new javax.swing.JButton();
 
@@ -255,7 +254,12 @@ public class FrmCompras extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
-        jButton1.setText("Guardar compra");
+        btInsertCompra.setText("Guardar compra");
+        btInsertCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInsertCompraActionPerformed(evt);
+            }
+        });
 
         btRemoveProveedor.setText("Eliminar proveedor");
         btRemoveProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -279,7 +283,7 @@ public class FrmCompras extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btRemoveProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btInsertCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(89, 89, 89))
         );
@@ -287,7 +291,7 @@ public class FrmCompras extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btInsertCompra)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btRemoveProveedor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -338,7 +342,7 @@ public class FrmCompras extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(cbProducto_Nombre.getSelectedIndex() > 0)
         {
-            Producto producto = LogicController.getProductoByCodigo(this.listProductos_Codigo.get(cbProducto_Nombre.getSelectedIndex()));
+            Producto producto = LogicController.getProductoByCodigo(this.listProductos_Codigo.get(cbProducto_Nombre.getSelectedIndex() -1));
             if(producto != null)
             {
                 txtProducto_Clasificacion.setText(producto.getClasificacion());
@@ -462,6 +466,37 @@ public class FrmCompras extends javax.swing.JFrame {
         this.hide();
     }//GEN-LAST:event_btBackActionPerformed
 
+    private void btInsertCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertCompraActionPerformed
+        // TODO add your handling code here:
+        if((validateFormProducto()) && (validateFormProveedor()))
+        {
+            boolean executed = LogicController.insertCompra(
+                                                            this.listProductos_Codigo.get(cbProducto_Nombre.getSelectedIndex() - 1),
+                                                            txtProveedor_RUT.getText(), 
+                                                            txtProveedor_Nombre.getText(), 
+                                                            txtProveedor_Direccion.getText(), 
+                                                            txtProveedor_Telefono.getText(), 
+                                                            txtProveedor_Celular.getText(), 
+                                                            txtProveedor_Email.getText(), 
+                                                            txtProducto_PrecioCompra.getText(), 
+                                                            txtProducto_Cantidad.getText(), 
+                                                            txtProducto_NumeroFactura.getText(), 
+                                                            txtProducto_FechaCompra.getText()
+            );
+            
+            if(executed == true)
+            {
+                JOptionPane.showMessageDialog(this, "Se ha ingresado exitosamente la nueva compra", "Ingresar nueva compra", JOptionPane.INFORMATION_MESSAGE);
+
+                clearFormCompra();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al ingresar la nueva compra", "Ingresar nueva compra", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btInsertCompraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -518,7 +553,6 @@ public class FrmCompras extends javax.swing.JFrame {
         if(dbMtm != null)
         {
             this.listProductos_Codigo = new ArrayList<String>();
-            this.listProductos_Codigo.add("");
             dcbm.addElement("Seleccione..");
 
             for(int i=0; i<dbMtm.getRowCount(); i++)
@@ -539,9 +573,13 @@ public class FrmCompras extends javax.swing.JFrame {
     {
         try
         {
-            Integer.parseInt(s);
+            int i = Integer.parseInt(s);
+            if(i >= 0)
+            {
+                return true;
+            }
             
-            return true;
+            return false;
         }
         catch(Exception ex)
         {
@@ -581,17 +619,137 @@ public class FrmCompras extends javax.swing.JFrame {
         }
     }
     
-    private void sop(String s)
+    private boolean validateFormProducto()
     {
-        System.out.println(s);
+        boolean response = true;
+        
+        if(cbProducto_Nombre.getSelectedIndex() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar el producto", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProducto_PrecioCompra.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el precio de compra del producto", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(validateNumber(txtProducto_PrecioCompra.getText()) == false)
+        {
+            JOptionPane.showMessageDialog(this, "El precio de compra de producto debe ser numérico positivo", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProducto_Cantidad.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar la cantidad del producto", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(validateNumber(txtProducto_Cantidad.getText()) == false)
+        {
+            JOptionPane.showMessageDialog(this, "La cantidad del producto debe ser numérica positiva", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProducto_NumeroFactura.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el número de factura del producto", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(validateNumber(txtProducto_NumeroFactura.getText()) == false)
+        {
+            JOptionPane.showMessageDialog(this, "El número de factura del producto debe ser numérico positivo", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProducto_FechaCompra.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar la fecha de compra del producto", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        
+        
+        return response;
+    }
+    
+    private boolean validateFormProveedor()
+    {
+        boolean response = true;
+        
+        if(txtProveedor_Nombre.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el nombre del proveedor", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProveedor_RUT.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el RUT del proveedor", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(validateRUT(txtProveedor_RUT.getText()) == false)
+        {
+            JOptionPane.showMessageDialog(this, "El RUT ingresado para el proveedo debe ser válido", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProveedor_Direccion.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar la dirección del proveedor", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProveedor_Telefono.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el teléfono del proveedor", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProveedor_Celular.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el celular del proveedor", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        else if(txtProveedor_Email.getText().length() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Debes ingresar el email del proveedor", "Ingresar nueva compra", JOptionPane.WARNING_MESSAGE);
+            
+            response = false;
+        }
+        
+     
+        return response;
+    }
+    
+    private void clearFormCompra()
+    {
+        loadProductos();
+        txtProducto_Clasificacion.setText("");
+        txtProducto_PrecioCompra.setText("");
+        txtProducto_Cantidad.setText("");
+        txtProducto_NumeroFactura.setText("");
+        txtProducto_FechaCompra.setText("");
+        
+        txtProveedor_Nombre.setText("");
+        txtProveedor_RUT.setText("");
+        txtProveedor_Direccion.setText("");
+        txtProveedor_Telefono.setText("");
+        txtProveedor_Celular.setText("");
+        txtProveedor_Email.setText("");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBack;
     private javax.swing.JButton btFindProveedor;
+    private javax.swing.JButton btInsertCompra;
     private javax.swing.JButton btRemoveProveedor;
     private javax.swing.JComboBox<String> cbProducto_Nombre;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
