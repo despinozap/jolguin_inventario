@@ -9,6 +9,8 @@ import inventario.Logic.CONFIG_FORMS;
 import inventario.Logic.LogicController;
 import inventario.Logic.MyTableModel;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -88,7 +90,7 @@ public class FrmProductos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -112,7 +114,11 @@ public class FrmProductos extends javax.swing.JFrame {
 
         jLabel7.setText("Fecha de caducidad:");
 
-        txtFechaCaducidad.setText("2017-10-09");
+        txtFechaCaducidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFechaCaducidadFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -127,10 +133,10 @@ public class FrmProductos extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbClasificacion, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbClasificacion, javax.swing.GroupLayout.Alignment.TRAILING, 0, 209, Short.MAX_VALUE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtNombre)
-                    .addComponent(txtFechaCaducidad, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
+                    .addComponent(txtFechaCaducidad))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -195,7 +201,7 @@ public class FrmProductos extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btRemove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btInsert, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                    .addComponent(btInsert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -223,7 +229,7 @@ public class FrmProductos extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -239,7 +245,7 @@ public class FrmProductos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(640, 486));
+        setSize(new java.awt.Dimension(724, 486));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -283,22 +289,26 @@ public class FrmProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(validateFormProducto())
         {
-            boolean executed = LogicController.insertProducto(
-                                                                txtCodigo.getText(),
-                                                                txtNombre.getText(), 
-                                                                cbClasificacion.getSelectedItem().toString(), 
-                                                                txtFechaCaducidad.getText()
-            );
-            
-            if(executed == true)
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Realmente deseas registrar el nuevo producto?", "Ingresar nuevo producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(confirm == JOptionPane.YES_OPTION)
             {
-                JOptionPane.showMessageDialog(this, "Se ha ingresado exitosamente el nuevo producto", "Ingresar nuevo producto", JOptionPane.INFORMATION_MESSAGE);
+                boolean executed = LogicController.insertProducto(
+                                                                    txtCodigo.getText(),
+                                                                    txtNombre.getText(), 
+                                                                    cbClasificacion.getSelectedItem().toString(), 
+                                                                    txtFechaCaducidad.getText()
+                );
 
-                loadProductos();
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al ingresar el nuevo producto", "Ingresar nuevo producto", JOptionPane.ERROR_MESSAGE);
+                if(executed == true)
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha ingresado exitosamente el nuevo producto", "Ingresar nuevo producto", JOptionPane.INFORMATION_MESSAGE);
+
+                    clearFormProducto();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error al ingresar el nuevo producto", "Ingresar nuevo producto", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_btInsertActionPerformed
@@ -328,19 +338,23 @@ public class FrmProductos extends javax.swing.JFrame {
                 
                 case 0:
                 {
-                    boolean executed = LogicController.deleteProducto(codigo);
-
-                    if(executed == true)
+                    int confirm = JOptionPane.showConfirmDialog(this, "¿Realmente deseas eliminar el producto?", "Eliminar producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if(confirm == JOptionPane.YES_OPTION)
                     {
-                        JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente el producto", "Eliminar producto", JOptionPane.INFORMATION_MESSAGE);
+                        boolean executed = LogicController.deleteProducto(codigo);
 
-                        loadProductos();
+                        if(executed == true)
+                        {
+                            JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente el producto", "Eliminar producto", JOptionPane.INFORMATION_MESSAGE);
+
+                            loadProductos();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar el producto", "Eliminar producto", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
-                    else
-                    {
-                        JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar el producto", "Eliminar producto", JOptionPane.ERROR_MESSAGE);
-                    }
-                
+                    
                     break;
                 }
                 
@@ -368,6 +382,17 @@ public class FrmProductos extends javax.swing.JFrame {
         CONFIG_FORMS.frmMain.show();
         this.hide();
     }//GEN-LAST:event_btBackActionPerformed
+
+    private void txtFechaCaducidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaCaducidadFocusLost
+        // TODO add your handling code here:
+        if(txtFechaCaducidad.getText().length() > 0)
+        {
+            if(validateDate(txtFechaCaducidad.getText()) == false)
+            {           
+                txtFechaCaducidad.setText("");
+            }
+        }
+    }//GEN-LAST:event_txtFechaCaducidadFocusLost
 
     /**
      * @param args the command line arguments
@@ -415,7 +440,7 @@ public class FrmProductos extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
     }
     
-    public void loadProductos()
+    private void loadProductos()
     {
         displayProductos(LogicController.getProductos());
     }
@@ -435,26 +460,19 @@ public class FrmProductos extends javax.swing.JFrame {
         mtm.addColumn("Clasificación");
         mtm.addColumn("Fecha caducidad");
         mtm.addColumn("Cantidad");
-        
-        if(dbMtm != null)
+
+        Object[] data = null;
+
+        for(int i=0; i<dbMtm.getRowCount(); i++)
         {
-            Object[] data = null;
-            
-            for(int i=0; i<dbMtm.getRowCount(); i++)
-            {
-                data = new Object[5];
-                data[0] = dbMtm.getValueAt(i, 0).toString();
-                data[1] = dbMtm.getValueAt(i, 1).toString();
-                data[2] = dbMtm.getValueAt(i, 2).toString();
-                data[3] = dbMtm.getValueAt(i, 3).toString();
-                data[4] = dbMtm.getValueAt(i, 4).toString();
-                
-                mtm.addRow(data);
-            }
-        }
-        else
-        {
-            
+            data = new Object[5];
+            data[0] = dbMtm.getValueAt(i, 0).toString();
+            data[1] = dbMtm.getValueAt(i, 1).toString();
+            data[2] = dbMtm.getValueAt(i, 2).toString();
+            data[3] = dbMtm.getValueAt(i, 3).toString();
+            data[4] = dbMtm.getValueAt(i, 4).toString();
+
+            mtm.addRow(data);
         }
         
         tbProductos.setModel(mtm);
@@ -513,6 +531,67 @@ public class FrmProductos extends javax.swing.JFrame {
         }
         
         return response;
+    }
+    
+    private boolean validateDate(String s)
+    {
+        if(s.length() != 10)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de compra debe tener el formato AÑO-MES-DIA. Ejemplo: 2016-12-31", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
+            
+            return false;
+        }
+        
+        if(Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", s) == false)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de compra debe tener el formato AÑO-MES-DIA. Ejemplo: 2016-12-31", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
+             
+            return false;
+        }
+
+        String sYear = s.substring(0, 4);
+        String sMonth = s.substring(5, 7);
+        String sDay = s.substring(8, 10);
+        
+        int year = -1;
+        int month = -1;
+        int day = -1;
+        
+        try
+        {
+            year = Integer.parseInt(sYear);
+            month = Integer.parseInt(sMonth);
+            day = Integer.parseInt(sDay);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha ingresada no existe", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
+             
+            return false;
+        }
+        
+        try 
+        {
+            String formatDate = "yyyy-MM-dd";
+            SimpleDateFormat format = new SimpleDateFormat(formatDate);
+            format.setLenient(false);
+            format.parse(s);
+            
+            return true;
+        }
+        catch (Exception e) 
+        {
+            return false;
+        }
+    }
+    
+    public void clearFormProducto()
+    {
+        txtNombre.setText("");
+        txtCodigo.setText("");
+        txtFechaCaducidad.setText("");
+        
+        loadProductos();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

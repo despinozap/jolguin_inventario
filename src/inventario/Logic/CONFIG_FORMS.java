@@ -5,8 +5,10 @@
  */
 package inventario.Logic;
 
+import inventario.Graphic.FrmAdministracion;
 import inventario.Graphic.FrmCompras;
 import inventario.Graphic.FrmMain;
+import inventario.Graphic.FrmMovimientos;
 import inventario.Graphic.FrmProductos;
 
 /**
@@ -17,4 +19,6 @@ public class CONFIG_FORMS {
     public static FrmMain frmMain = null;
     public static FrmProductos frmProductos = null;
     public static FrmCompras frmCompras = null;
+    public static FrmMovimientos frmMovimientos = null;
+    public static FrmAdministracion frmAdministracion = null;
 }

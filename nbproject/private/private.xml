@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/David/Documents/BitBucket/jorgeolguin_inventario/src/inventario/Graphic/FrmCompras.java</file>
+            <file>file:/C:/Users/David/Documents/BitBucket/jorgeolguin_inventario/src/inventario/Persistent/SQLite.java</file>
             <file>file:/C:/Users/David/Documents/BitBucket/jorgeolguin_inventario/src/inventario/Logic/LogicController.java</file>
-            <file>file:/C:/Users/David/Documents/BitBucket/jorgeolguin_inventario/src/inventario/Graphic/FrmMain.java</file>
-            <file>file:/C:/Users/David/Documents/BitBucket/jorgeolguin_inventario/src/inventario/Graphic/FrmProductos.java</file>
-            <file>file:/C:/Users/David/Documents/BitBucket/jorgeolguin_inventario/src/inventario/Logic/CONFIG_FORMS.java</file>
+            <file>file:/C:/Users/David/Documents/BitBucket/jorgeolguin_inventario/src/inventario/Graphic/FrmAdministracion.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,5 +1,1 @@
-deleteProveedor
-back
-validateFormProducto
-validateFormCompra
-insertCompra
+imprimir situacion actual

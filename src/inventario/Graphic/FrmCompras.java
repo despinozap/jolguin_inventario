@@ -11,7 +11,9 @@ import inventario.Logic.CONFIG_FORMS;
 import inventario.Logic.LogicController;
 import inventario.Logic.MyTableModel;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 /**
@@ -106,6 +108,12 @@ public class FrmCompras extends javax.swing.JFrame {
         jLabel5.setText("Número de factura:");
 
         jLabel6.setText("Fecha de compra:");
+
+        txtProducto_FechaCompra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtProducto_FechaCompraFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -420,17 +428,21 @@ public class FrmCompras extends javax.swing.JFrame {
 
                     case 0:
                     {
-                        boolean executed = LogicController.deleteProveedor(rut);
-
-                        if(executed == true)
+                        int confirm = JOptionPane.showConfirmDialog(this, "¿Realmente deseas eliminar el proveedor?", "Eliminar proveedor", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(confirm == JOptionPane.YES_OPTION)
                         {
-                            JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente el proveedor", "Eliminar proveedor", JOptionPane.INFORMATION_MESSAGE);
+                            boolean executed = LogicController.deleteProveedor(rut);
 
-                            loadProductos();
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar el proveedor", "Eliminar proveedor", JOptionPane.ERROR_MESSAGE);
+                            if(executed == true)
+                            {
+                                JOptionPane.showMessageDialog(this, "Se ha eliminado exitosamente el proveedor", "Eliminar proveedor", JOptionPane.INFORMATION_MESSAGE);
+
+                                loadProductos();
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar el proveedor", "Eliminar proveedor", JOptionPane.ERROR_MESSAGE);
+                            }
                         }
 
                         break;
@@ -470,32 +482,50 @@ public class FrmCompras extends javax.swing.JFrame {
         // TODO add your handling code here:
         if((validateFormProducto()) && (validateFormProveedor()))
         {
-            boolean executed = LogicController.insertCompra(
-                                                            this.listProductos_Codigo.get(cbProducto_Nombre.getSelectedIndex() - 1),
-                                                            txtProveedor_RUT.getText(), 
-                                                            txtProveedor_Nombre.getText(), 
-                                                            txtProveedor_Direccion.getText(), 
-                                                            txtProveedor_Telefono.getText(), 
-                                                            txtProveedor_Celular.getText(), 
-                                                            txtProveedor_Email.getText(), 
-                                                            txtProducto_PrecioCompra.getText(), 
-                                                            txtProducto_Cantidad.getText(), 
-                                                            txtProducto_NumeroFactura.getText(), 
-                                                            txtProducto_FechaCompra.getText()
-            );
-            
-            if(executed == true)
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Realmente deseas registrar la nueva compra?", "Ingresar nueva compra", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(confirm == JOptionPane.YES_OPTION)
             {
-                JOptionPane.showMessageDialog(this, "Se ha ingresado exitosamente la nueva compra", "Ingresar nueva compra", JOptionPane.INFORMATION_MESSAGE);
+                boolean executed = LogicController.insertCompra(
+                                                                this.listProductos_Codigo.get(cbProducto_Nombre.getSelectedIndex() - 1),
+                                                                txtProveedor_RUT.getText(), 
+                                                                txtProveedor_Nombre.getText(), 
+                                                                txtProveedor_Direccion.getText(), 
+                                                                txtProveedor_Telefono.getText(), 
+                                                                txtProveedor_Celular.getText(), 
+                                                                txtProveedor_Email.getText(), 
+                                                                txtProducto_PrecioCompra.getText(), 
+                                                                txtProducto_Cantidad.getText(), 
+                                                                txtProducto_NumeroFactura.getText(), 
+                                                                txtProducto_FechaCompra.getText()
+                );
 
-                clearFormCompra();
+                if(executed == true)
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha ingresado exitosamente la nueva compra", "Ingresar nueva compra", JOptionPane.INFORMATION_MESSAGE);
+
+                    clearFormCompra();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error al ingresar la nueva compra", "Ingresar nueva compra", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al ingresar la nueva compra", "Ingresar nueva compra", JOptionPane.ERROR_MESSAGE);
-            }
+            
         }
     }//GEN-LAST:event_btInsertCompraActionPerformed
+
+    private void txtProducto_FechaCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProducto_FechaCompraFocusLost
+        // TODO add your handling code here:
+        
+        if(txtProducto_FechaCompra.getText().length() > 0)
+        {
+            if(validateDate(txtProducto_FechaCompra.getText()) == false)
+            {           
+                txtProducto_FechaCompra.setText("");
+            }
+        }
+        
+    }//GEN-LAST:event_txtProducto_FechaCompraFocusLost
 
     /**
      * @param args the command line arguments
@@ -544,7 +574,7 @@ public class FrmCompras extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
     }
     
-    public void loadProductos()
+    private void loadProductos()
     {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         
@@ -569,12 +599,64 @@ public class FrmCompras extends javax.swing.JFrame {
         cbProducto_Nombre.setModel(dcbm);
     }
     
+    private boolean validateDate(String s)
+    {
+        if(s.length() != 10)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de compra debe tener el formato AÑO-MES-DIA. Ejemplo: 2016-12-31", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
+            
+            return false;
+        }
+        
+        if(Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", s) == false)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de compra debe tener el formato AÑO-MES-DIA. Ejemplo: 2016-12-31", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
+             
+            return false;
+        }
+
+        String sYear = s.substring(0, 4);
+        String sMonth = s.substring(5, 7);
+        String sDay = s.substring(8, 10);
+        
+        int year = -1;
+        int month = -1;
+        int day = -1;
+        
+        try
+        {
+            year = Integer.parseInt(sYear);
+            month = Integer.parseInt(sMonth);
+            day = Integer.parseInt(sDay);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha ingresada no existe", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
+             
+            return false;
+        }
+        
+        try 
+        {
+            String formatDate = "yyyy-MM-dd";
+            SimpleDateFormat format = new SimpleDateFormat(formatDate);
+            format.setLenient(false);
+            format.parse(s);
+            
+            return true;
+        }
+        catch (Exception e) 
+        {
+            return false;
+        }
+    }
+    
     private boolean validateNumber(String s)
     {
         try
         {
             int i = Integer.parseInt(s);
-            if(i >= 0)
+            if(i > 0)
             {
                 return true;
             }
@@ -727,9 +809,10 @@ public class FrmCompras extends javax.swing.JFrame {
         return response;
     }
     
-    private void clearFormCompra()
+    public void clearFormCompra()
     {
         loadProductos();
+        
         txtProducto_Clasificacion.setText("");
         txtProducto_PrecioCompra.setText("");
         txtProducto_Cantidad.setText("");

@@ -37,7 +37,7 @@ public class FrmMain extends javax.swing.JFrame {
 
         btShowCompras = new javax.swing.JButton();
         btShowProductos = new javax.swing.JButton();
-        btShowInventario = new javax.swing.JButton();
+        btShowMovimientos = new javax.swing.JButton();
         btShowAdministracion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lbCurrentDate = new javax.swing.JLabel();
@@ -62,11 +62,21 @@ public class FrmMain extends javax.swing.JFrame {
             }
         });
 
-        btShowInventario.setText("Movimientos de Inventario");
-        btShowInventario.setFocusable(false);
+        btShowMovimientos.setText("Movimientos de Inventario");
+        btShowMovimientos.setFocusable(false);
+        btShowMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btShowMovimientosActionPerformed(evt);
+            }
+        });
 
         btShowAdministracion.setText("Administración");
         btShowAdministracion.setFocusable(false);
+        btShowAdministracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btShowAdministracionActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Seleccione una opción:");
 
@@ -88,7 +98,7 @@ public class FrmMain extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btShowProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btShowCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btShowInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                            .addComponent(btShowMovimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                             .addComponent(btShowAdministracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addComponent(lbCurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -109,7 +119,7 @@ public class FrmMain extends javax.swing.JFrame {
                         .addGap(66, 66, 66)
                         .addComponent(lbCurrentDate)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btShowInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btShowMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btShowAdministracion, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -126,7 +136,7 @@ public class FrmMain extends javax.swing.JFrame {
             CONFIG_FORMS.frmProductos = new FrmProductos();
         }
         
-        CONFIG_FORMS.frmProductos.loadProductos();
+        CONFIG_FORMS.frmProductos.clearFormProducto();
         CONFIG_FORMS.frmProductos.show();
         this.hide();
     }//GEN-LAST:event_btShowProductosActionPerformed
@@ -138,10 +148,35 @@ public class FrmMain extends javax.swing.JFrame {
             CONFIG_FORMS.frmCompras = new FrmCompras();
         }
         
-        CONFIG_FORMS.frmCompras.loadProductos();
+        CONFIG_FORMS.frmCompras.clearFormCompra();
         CONFIG_FORMS.frmCompras.show();
         this.hide();
     }//GEN-LAST:event_btShowComprasActionPerformed
+
+    private void btShowMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btShowMovimientosActionPerformed
+        // TODO add your handling code here:
+        if(CONFIG_FORMS.frmMovimientos == null)
+        {
+            CONFIG_FORMS.frmMovimientos = new FrmMovimientos();
+        }
+        
+        CONFIG_FORMS.frmMovimientos.clearFormRetiro();
+        CONFIG_FORMS.frmMovimientos.loadProductos_SituacionActual();
+        CONFIG_FORMS.frmMovimientos.show();
+        this.hide();
+    }//GEN-LAST:event_btShowMovimientosActionPerformed
+
+    private void btShowAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btShowAdministracionActionPerformed
+        // TODO add your handling code here:
+        if(CONFIG_FORMS.frmAdministracion == null)
+        {
+            CONFIG_FORMS.frmAdministracion = new FrmAdministracion();
+        }
+        
+        CONFIG_FORMS.frmAdministracion.clearForms();
+        CONFIG_FORMS.frmAdministracion.show();
+        this.hide();
+    }//GEN-LAST:event_btShowAdministracionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,7 +254,7 @@ public class FrmMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btShowAdministracion;
     private javax.swing.JButton btShowCompras;
-    private javax.swing.JButton btShowInventario;
+    private javax.swing.JButton btShowMovimientos;
     private javax.swing.JButton btShowProductos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbCurrentDate;

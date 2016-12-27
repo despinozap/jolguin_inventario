@@ -39,7 +39,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btShowProductos" max="32767" attributes="0"/>
                           <Component id="btShowCompras" max="32767" attributes="0"/>
-                          <Component id="btShowInventario" pref="163" max="32767" attributes="0"/>
+                          <Component id="btShowMovimientos" pref="163" max="32767" attributes="0"/>
                           <Component id="btShowAdministracion" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="34" max="32767" attributes="0"/>
@@ -68,7 +68,7 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btShowInventario" min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="btShowMovimientos" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btShowAdministracion" min="-2" pref="56" max="-2" attributes="0"/>
               <EmptySpace pref="42" max="32767" attributes="0"/>
@@ -95,17 +95,23 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btShowProductosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btShowInventario">
+    <Component class="javax.swing.JButton" name="btShowMovimientos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Movimientos de Inventario"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btShowMovimientosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btShowAdministracion">
       <Properties>
         <Property name="text" type="java.lang.String" value="Administraci&#xf3;n"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btShowAdministracionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
