@@ -470,6 +470,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
        clearForm_InformeCostos();
        clearForm_Top10Productos();
        clearForm_InformacionInventario();
+       clearForm_InformacionProveedores();
     }
     
     private void clearForm_InformeCostos()
@@ -484,6 +485,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         }
         
         cbInformeCostos_Anio.setModel(dcbm);
+        
+        lbInformeCostos_Chart.setIcon(null);
     }
     
     private void clearForm_Top10Productos()
@@ -503,6 +506,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         }
         
         cbTop10Productos_Mes.setModel(dcbm);
+        
+        lbTop10Producto_Chart.setIcon(null);
     }
     
     private boolean clearForm_InformacionInventario()
@@ -548,6 +553,21 @@ public class FrmAdministracion extends javax.swing.JFrame {
         tbInformacionInventario_Productos.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         
         return result;
+    }
+    
+    private void clearForm_InformacionProveedores()
+    {
+        txtInformacionProveedores_Codigo.setText("");
+        
+        MyTableModel mtm = new MyTableModel();
+        mtm.addColumn("RUT");
+        mtm.addColumn("Proveedor");
+        mtm.addColumn("Precio");
+        mtm.addColumn("Cantidad");
+        mtm.addColumn("Factura");
+        mtm.addColumn("Fecha");
+        
+        tbInformacionProveedores_Proveedores.setModel(mtm);
     }
     
     private boolean displayInformacionProveedores(MyTableModel dbMtm)

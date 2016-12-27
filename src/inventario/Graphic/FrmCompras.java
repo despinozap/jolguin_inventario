@@ -631,8 +631,8 @@ public class FrmCompras extends javax.swing.JFrame {
         }
         catch(Exception ex)
         {
-            JOptionPane.showMessageDialog(this, "La fecha ingresada no existe", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
-             
+            JOptionPane.showMessageDialog(this, "La fecha de compra debe tener el formato AÑO-MES-DIA. Ejemplo: 2016-12-31", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
+            
             return false;
         }
         
@@ -647,6 +647,8 @@ public class FrmCompras extends javax.swing.JFrame {
         }
         catch (Exception e) 
         {
+            JOptionPane.showMessageDialog(this, "La fecha ingresada no existe", "Formato de fecha", JOptionPane.WARNING_MESSAGE);
+            
             return false;
         }
     }

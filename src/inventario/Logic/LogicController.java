@@ -11,7 +11,6 @@ import inventario.Persistent.SQLite;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
